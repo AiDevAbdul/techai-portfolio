@@ -3,14 +3,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await req.json();
     const { status } = body;
 
     const lead = await prisma.lead.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
     });
 
@@ -25,11 +26,12 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await prisma.lead.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ data: null, error: null });

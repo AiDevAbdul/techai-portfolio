@@ -75,7 +75,7 @@ export default function LeadsPage() {
               render: (v, item) => (
                 <select
                   value={v}
-                  onChange={(e) => handleStatusChange(item, e.target.value)}
+                  onChange={(e) => item && handleStatusChange(item, e.target.value)}
                   className="bg-primary-bg border border-primary-action rounded px-2 py-1 text-text-primary"
                 >
                   <option value="new">New</option>

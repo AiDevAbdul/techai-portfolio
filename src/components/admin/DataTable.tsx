@@ -3,7 +3,7 @@
 interface Column<T> {
   key: keyof T;
   label: string;
-  render?: (value: any) => React.ReactNode;
+  render?: (value: any, item?: T) => React.ReactNode;
 }
 
 interface DataTableProps<T> {
@@ -53,7 +53,7 @@ export default function DataTable<T extends { id: string }>({
                   className="px-6 py-4 text-sm text-text-primary"
                 >
                   {col.render
-                    ? col.render(item[col.key])
+                    ? col.render(item[col.key], item)
                     : String(item[col.key])}
                 </td>
               ))}
