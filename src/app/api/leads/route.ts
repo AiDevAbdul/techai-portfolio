@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { sendLeadNotification, sendWelcomeEmail } from '@/lib/email';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
@@ -30,6 +31,12 @@ export async function POST(req: NextRequest) {
     const lead = await prisma.lead.create({
       data: { name, email, message },
     });
+
+    // Send emails asynchronously
+    Promise.all([
+      sendLeadNotification(name, email, message),
+      sendWelcomeEmail(email, name),
+    ]).catch((err) => console.error('Email sending failed:', err));
 
     return NextResponse.json({ data: lead, error: null });
   } catch (error) {
