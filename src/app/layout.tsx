@@ -20,6 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "techai.pk - Learn It. Build It. Automate It.",
   description: "Personal brand website for Abdul Wahab - Online Tutor, AI Automation Specialist, Web Developer, Consultant & Tech Speaker",
+  keywords: ["web development", "AI automation", "tutoring", "tech speaker", "consulting"],
+  authors: [{ name: "Abdul Wahab" }],
+  openGraph: {
+    title: "techai.pk",
+    description: "Learn It. Build It. Automate It.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
