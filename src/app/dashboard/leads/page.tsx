@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import DataTable from '@/components/admin/DataTable';
 
+export const dynamic = 'force-dynamic';
+
 interface Lead {
   id: string;
   name: string;

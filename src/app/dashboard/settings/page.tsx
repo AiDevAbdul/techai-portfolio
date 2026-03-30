@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 interface Setting {
   key: string;
   value: string;

@@ -1,5 +1,6 @@
 import type { NextAuthOptions, Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
+import { getServerSession } from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
@@ -63,3 +64,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+export async function auth() {
+  return getServerSession(authOptions);
+}

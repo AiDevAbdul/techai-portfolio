@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DataTable from '@/components/admin/DataTable';
 
+export const dynamic = 'force-dynamic';
+
 interface Blog {
   id: string;
   title: string;

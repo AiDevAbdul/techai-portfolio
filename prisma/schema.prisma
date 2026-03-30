@@ -2,12 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -21,10 +22,14 @@ model User {
 model Project {
   id          String   @id @default(cuid())
   title       String
+  slug        String   @unique
   description String
+  content     String?  @db.Text
   image       String?
   link        String?
+  githubUrl   String?
   tags        String[] @default([])
+  category    String   @default("web") // "web" | "ai" | "tutoring"
   featured    Boolean  @default(false)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
@@ -38,6 +43,9 @@ model Blog {
   excerpt   String
   content   String   @db.Text
   image     String?
+  tags      String[] @default([])
+  readTime  Int      @default(5) // minutes
+  category  String   @default("general")
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,8 +55,11 @@ model Testimonial {
   id        String   @id @default(cuid())
   name      String
   role      String
+  company   String?
   content   String   @db.Text
   image     String?
+  rating    Int      @default(5)
+  service   String   @default("web-dev") // "tutoring" | "web-dev" | "ai" | "consultation"
   featured  Boolean  @default(false)
   order     Int      @default(0)
   createdAt DateTime @default(now())
@@ -59,6 +70,7 @@ model Lead {
   id        String   @id @default(cuid())
   name      String
   email     String
+  service   String   @default("web-dev") // "tutoring" | "web-dev" | "ai" | "consultation"
   message   String   @db.Text
   status    String   @default("new")
   createdAt DateTime @default(now())
